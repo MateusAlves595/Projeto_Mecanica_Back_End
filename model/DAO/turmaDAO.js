@@ -43,9 +43,8 @@ const deleteTurma = async function(id) {
         return false
 }
 
-
 ///////////////////////Updates//////////////////////////
-const updateTurma = async function(dadosTurma, idCurso) {
+const updateTurma = async function(dadosTurma) {
 
     let sql = `update tbl_turma set
                     nome = '${dadosTurma.nome}',
@@ -89,7 +88,9 @@ const selectLastId = async function() {
 
 const selectTurmaByID = async function(id) {
 
-    let sql = `select * from tbl_turma where id = ${id}`;
+    let idTurma = id
+
+    let sql = `select * from tbl_turma where id = ${idTurma}`;
 
     let rsTurmaId = await prisma.$queryRawUnsafe(sql);
 

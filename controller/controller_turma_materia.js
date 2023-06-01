@@ -37,8 +37,8 @@ const inserirTurmaMateria = async function (dadosTurmaMateria) {
 
 const atualizarTurmaMateria = async function (dadosTurmaMateria, idTurmaMateria) {
 
-    if (dadosTurmaMateria.id_turma == '' || dadosTurmaMateria.id_turma == undefined ||
-        dadosTurmaMateria.id_materia == '' || dadosTurmaMateria.id_materia == undefined
+    if (dadosTurmaMateria.id_turma == '' || dadosTurmaMateria.id_turma == undefined || isNaN(dadosTurmaMateria.id_turma) ||
+        dadosTurmaMateria.id_materia == '' || dadosTurmaMateria.id_materia == undefined || isNaN(dadosTurmaMateria.id_materia)
     ) {
         return message.ERROR_REQUIRED_FIELDS
     } else if (idTurmaMateria == '' || idTurmaMateria == undefined || idTurmaMateria == isNaN(idTurmaMateria)) {
@@ -60,6 +60,7 @@ const atualizarTurmaMateria = async function (dadosTurmaMateria, idTurmaMateria)
                 resultDadosTurmaMateriaJSON.status = message.SUCESS_UPDATED_ITEM.status
                 resultDadosTurmaMateriaJSON.message = message.SUCESS_UPDATED_ITEM.message
                 resultDadosTurmaMateriaJSON.turmasMaterias = resultDadosTurmaMateria
+
                 return resultDadosTurmaMateriaJSON
             } else
                 return message.ERROR_INTERNAL_SERVER
@@ -112,6 +113,7 @@ const getTurmaMateria = async function () {
         return message.ERROR_NOT_FOUND
     }
 }
+
 const getTurmaMateriaID = async function (id) {
 
     if(id == '' || id == undefined || isNaN(id)) {

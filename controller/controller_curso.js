@@ -65,6 +65,7 @@ const atualizarCurso = async function (dadosCurso, idCurso) {
                 dadosCursosJSON.status = message.SUCESS_UPDATED_ITEM.status
                 dadosCursosJSON.message = message.SUCESS_UPDATED_ITEM.message
                 dadosCursosJSON.cursos = dadosCurso
+                
                 return dadosCursosJSON
             } else
                 return message.ERROR_INTERNAL_SERVER
@@ -73,7 +74,6 @@ const atualizarCurso = async function (dadosCurso, idCurso) {
             return message.ERROR_NOT_FOUND
         }
     }
-
 }
 
 const deletarCurso = async function (idCurso) {

@@ -47,7 +47,32 @@ const getTipoUsuario = async function() {
     }
 }
 
+const getTipoUsuarioPorID = async function (id) {
+
+    if(id == '' || id == undefined || isNaN(id)) {
+        return message.ERROR_INVALID_ID
+    } else {
+
+        let dadosTipoUsuarioJSON = {}
+
+        let dadosTipoUsuario = await tipoUsuarioDAO.selectTipoUsuarioByID(id)
+
+        if(dadosTipoUsuario) {
+
+            dadosTipoUsuarioJSON.status = message.SUCESS_REQUEST.status
+            dadosTipoUsuarioJSON.message = message.SUCESS_REQUEST.message
+            dadosTipoUsuarioJSON.tipoUsuario = dadosTipoUsuario
+
+            return dadosTipoUsuarioJSON
+
+        } else {
+            return message.ERROR_NOT_FOUND
+        }
+    }
+}
+
 module.exports = {
     inserirTipoUsuario,
-    getTipoUsuario
+    getTipoUsuario,
+    getTipoUsuarioPorID
 }

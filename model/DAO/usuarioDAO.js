@@ -43,11 +43,11 @@ const deleteUsuario = async function(id) {
 }
 
 ///////////////////////Updates//////////////////////////
-const updateUsuario = async function(dadosUsuario, idTipoUsuario) {
+const updateUsuario = async function(dadosUsuario) {
     let sql = `update tbl_usuario set
                     email = '${dadosUsuario.email}',
                     senha = '${dadosUsuario.senha}',
-                    tipo_usuario = '${idTipoUsuario}'
+                    id_tipo_usuario = '${dadosUsuario.id_tipo_usuario}'
                 where id = ${dadosUsuario.id}    
             `
 

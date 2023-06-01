@@ -9,7 +9,6 @@ var { PrismaClient } = require('@prisma/client')
 
 var prisma = new PrismaClient()
 
-
 const insertTurmaMateria = async function (dadosTurmaMateria) {
     let sql = `insert into tbl_turma_materia (
         id_turma,

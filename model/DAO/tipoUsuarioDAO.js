@@ -48,8 +48,22 @@ const selectLastId = async function() {
         return false
 }
 
+const selectTipoUsuarioByID = async function (id) {
+    let sql = `select * from tbl_tipo_usuario where id = ${id}`;
+
+    let rsTipoUsuarioId = await prisma.$queryRawUnsafe(sql);
+
+    if (rsTipoUsuarioId.length > 0) {
+        return rsTipoUsuarioId;
+    }
+    else {
+        return false;
+    }
+}
+
 module.exports = {
     insertTipoUsuario,
     selectLastId,
-    selectAllTipos
+    selectAllTipos,
+    selectTipoUsuarioByID
 }

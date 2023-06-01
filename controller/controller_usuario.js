@@ -10,6 +10,7 @@
 var message = require('./modulo/config.js')
 
 var usuarioDAO = require('../model/DAO/usuarioDAO.js')
+var tipoUsuarioDAO = require('../model/DAO/tipoUsuarioDAO.js')
 
 const { request } = require('express')
 
@@ -49,17 +50,19 @@ const atualizarUsuario = async function (dadosUsuario, idUsuario) {
     if (dadosUsuario.email == '' || dadosUsuario.email == undefined || dadosUsuario.email.length > 100 ||
         dadosUsuario.senha == '' || dadosUsuario.senha == undefined ||
         dadosUsuario.id_tipo_usuario == '' || dadosUsuario.id_tipo_usuario == undefined
-
     ) {
+
         return message.ERROR_REQUIRED_FIELDS
-        //Validação de id incorreto ou não informado
+        
     } else if (idUsuario == '' || idUsuario == undefined || idUsuario == isNaN(idUsuario)) {
+
         return message.ERROR_INVALID_ID
+
     } else {
 
         dadosUsuario.id = idUsuario;
 
-        let statusId = await usuarioDAO.selectUsuarioByID(id);
+        let statusId = await usuarioDAO.selectUsuarioByID(idUsuario);
 
         if (statusId) {
             //Encaminha os dados para a model do aluno
@@ -71,12 +74,17 @@ const atualizarUsuario = async function (dadosUsuario, idUsuario) {
                 dadosUsuarioJSON.status = message.SUCESS_UPDATED_ITEM.status
                 dadosUsuarioJSON.message = message.SUCESS_UPDATED_ITEM.message
                 dadosUsuarioJSON.usuario = dadosUsuario
-                return dadosAlunosJSON
+
+                return dadosUsuarioJSON
+
             } else
+
                 return message.ERROR_INTERNAL_SERVER
 
         } else {
+
             return message.ERROR_NOT_FOUND
+
         }
     }
 }
@@ -120,8 +128,6 @@ const getUsuario = async function () {
     }
 
 }
-
-
 
 module.exports = {
     inserirUsuario,

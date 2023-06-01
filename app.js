@@ -661,7 +661,6 @@ app.delete('/v1/mecanica/tipo/criterio/:id', cors(), bodyParserJSON, async funct
    }
 });
 
-
 //EndPoint: Atualiza um tipo de criterio pelo id
 app.put('/v1/mecanica/criterio/:id', cors(), bodyParserJSON, async function (request, response) {
     //recebe o content-type da requisicao
@@ -774,7 +773,7 @@ app.put('/v1/mecanica/tipo/tarefa/:id', cors(), bodyParserJSON, async function (
 /////////////////////////////////////////Tarefa//////////////////////////////////////////////
 
 /********************************
-* Objetivo : API de controle de  tarefas
+* Objetivo : API de controle de tarefas
 * Data : 27/05/2023
 ********************************/
 

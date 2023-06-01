@@ -29,7 +29,7 @@ const insertMateria = async function(dadosMateria) {
 }
 
 //////////////////////Deletes///////////////////////////
-const deleteMateria = async  function(id) {
+const deleteMateria = async function(id) {
     let sql = `delete from tbl_materia where id = ${id}`
 
     let resultStatus = await prisma.$executeRawUnsafe(sql)
@@ -94,10 +94,6 @@ const selectMateriaByID = async function (id) {
         return false;
     }
 }
-
-
-
-
 
 module.exports = {
     insertMateria,

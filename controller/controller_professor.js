@@ -47,6 +47,7 @@ const inserirProfessor = async function (dadosProfessor) {
 }
 
 const atualizarProfessor = async function (dadosProfessor, idProfessor) {
+
     if (dadosProfessor.nome == '' || dadosProfessor.nome == undefined || dadosProfessor.nome.length > 150 ||
         dadosProfessor.data_nascimento == '' || dadosProfessor.data_nascimento == undefined ||
         dadosProfessor.email == '' || dadosProfessor.email == undefined ||
@@ -54,8 +55,11 @@ const atualizarProfessor = async function (dadosProfessor, idProfessor) {
         dadosProfessor.id_usuario == '' || dadosProfessor.id_usuario == undefined
     ) {
         return message.ERROR_REQUIRED_FIELDS
+
     } else if (idProfessor == '' || idProfessor == undefined || idProfessor == isNaN(idProfessor)) {
+
         return message.ERROR_INVALID_ID
+
     } else {
         //Adiciona o id do professor no JSON dos dados
         dadosProfessor.id = idProfessor;
@@ -69,9 +73,11 @@ const atualizarProfessor = async function (dadosProfessor, idProfessor) {
             if (resultDadosProfessor) {
 
                 let dadosProfessorJSON = {}
+
                 dadosProfessorJSON.status = message.SUCESS_UPDATED_ITEM.status
                 dadosProfessorJSON.message = message.SUCESS_UPDATED_ITEM.message
                 dadosProfessorJSON.professor = dadosProfessor
+
                 return dadosProfessorJSON
             } else
                 return message.ERROR_INTERNAL_SERVER
@@ -80,8 +86,6 @@ const atualizarProfessor = async function (dadosProfessor, idProfessor) {
             return message.ERROR_NOT_FOUND
         }
     }
-
-
 }
 
 const deletarProfessor = async function (idProfessor) {
@@ -105,7 +109,6 @@ const deletarProfessor = async function (idProfessor) {
 
 }
 
-
 const getProfessorPorID = async function (idProfessor) {
 
     if (idProfessor == '' || idProfessor == undefined || isNaN(idProfessor)) {
@@ -117,15 +120,19 @@ const getProfessorPorID = async function (idProfessor) {
         let dadosProfessor = await professorDAO.selectProfessorById(idProfessor);
 
         if (dadosProfessor) {
-            dadosProfessorJSON.status = message.SUCESS_REQUEST.message
+
+            dadosProfessorJSON.status = message.SUCESS_REQUEST.status
             dadosProfessorJSON.message = message.SUCESS_REQUEST.message
             dadosProfessorJSON.professor = dadosProfessor
+
             return dadosProfessorJSON
+
         } else {
+
             return message.ERROR_NOT_FOUND
+
         }
     }
-
 }
 
 const getProfessores = async function () {
