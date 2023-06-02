@@ -8,6 +8,7 @@
 
 //Import do arquivo de configuração das variaveis, constantes e funções globais
 var message = require('./modulo/config.js')
+
 var criterioDAO = require('../model/DAO/criterioDAO.js')
 
 const { request } = require('express')
@@ -19,6 +20,7 @@ const inserirCriterio = async function (dadosCriterio) {
         dadosCriterio.id_tipo_criterio == '' || dadosCriterio.id_tipo_criterio == undefined ||
         dadosCriterio.id_tarefa == '' || dadosCriterio.id_tarefa == undefined
     ) {
+        console.log('teste');
         return message.ERROR_REQUIRED_FIELDS
     } else {
 
@@ -42,12 +44,15 @@ const atualizarCriterio = async function (dadosCriterio, idCriterio) {
 
     if (dadosCriterio.descricao == '' || dadosCriterio.descricao == undefined ||
         dadosCriterio.resultado_desejado == '' || dadosCriterio.resultado_desejado == undefined ||
-        dadosCriterio.id_tipo_criterio == '' || dadosCriterio.id_tipo_criterio == undefined ||
-        dadosCriterio.id_tarefa == '' || dadosCriterio.id_tarefa == undefined
+        dadosCriterio.id_tipo_criterio == '' || dadosCriterio.id_tipo_criterio == undefined || isNaN(dadosCriterio.id_tipo_criterio) ||
+        dadosCriterio.id_tarefa == '' || dadosCriterio.id_tarefa == undefined || isNaN(dadosCriterio.id_tarefa)
     ) {
         return message.ERROR_REQUIRED_FIELDS
+
     } else if (idCriterio == '' || idCriterio == undefined || idCriterio == isNaN(idCriterio)) {
+        
         return message.ERROR_INVALID_ID
+
     } else {
         //Adiciona o id do curso no JSON dos dados
         dadosCriterio.id = idCriterio;
@@ -65,15 +70,19 @@ const atualizarCriterio = async function (dadosCriterio, idCriterio) {
                 dadosCriterioJSON.status = message.SUCESS_UPDATED_ITEM.status
                 dadosCriterioJSON.message = message.SUCESS_UPDATED_ITEM.message
                 dadosCriterioJSON.criterio = dadosCriterio
+
                 return  dadosCriterioJSON
+
             } else
+
                 return message.ERROR_INTERNAL_SERVER
 
         } else {
+
             return message.ERROR_NOT_FOUND
+
         }
     }
-
 }
 
 const deletarCriterio = async function (idCriterio) {

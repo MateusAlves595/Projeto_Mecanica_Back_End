@@ -53,7 +53,7 @@ const updateCriterio = async function (dadosCriterio) {
                     resultado_desejado = ${dadosCriterio.resultado_desejado},
                     id_tipo_criterio = ${dadosCriterio.id_tipo_criterio},
                     id_tarefa = ${dadosCriterio.id_tarefa}
-                where id = ${dadosCriterio.id}    
+                where id = ${dadosCriterio.id}
     `
 
     //Executa o scriptSQL no BD

@@ -53,7 +53,7 @@ const deletarAvaliacaoAluno = async function (idAvaliacaoAluno) {
         if (idAvaliacaoAluno == '' || idAvaliacaoAluno == undefined || isNaN(idAvaliacaoAluno)) {
             return message.ERROR_INVALID_ID; 
         } else {
-            let resultDadosAvaliacaoAluno = await avaliacaoAlunoDAO.deletarAvaliacaoAluno(idAvaliacaoAluno)
+            let resultDadosAvaliacaoAluno = await avaliacaoAlunoDAO.deleteAvaliacaoAluno(idAvaliacaoAluno)
 
             if (resultDadosAvaliacaoAluno) {
                 return message.SUCESS_DELETED_ITEM
@@ -67,6 +67,47 @@ const deletarAvaliacaoAluno = async function (idAvaliacaoAluno) {
     }
 }
 
+const atualizarAvaliacaoAluno = async function(dadosAvaliacaoAluno, idAvaliacaoAluno) {
+
+    if(dadosAvaliacaoAluno.resultado == '' || dadosAvaliacaoAluno.resultado == undefined ||
+    dadosAvaliacaoAluno.id_aluno == '' || dadosAvaliacaoAluno.id_aluno == undefined ||
+    dadosAvaliacaoAluno.id_criterio == '' || dadosAvaliacaoAluno.id_criterio == undefined
+    ){
+
+        return message.ERROR_REQUIRED_FIELDS
+
+    } else if (idAvaliacaoAluno == '' || idAvaliacaoAluno == undefined || idAvaliacaoAluno == isNaN(idAvaliacaoAluno)) {
+        
+        return message.ERROR_INVALID_ID
+
+    } else {
+
+        dadosAvaliacaoAluno.id = idAvaliacaoAluno
+
+        let statusID = await avaliacaoAlunoDAO.selectAvaliacaoAlunoByID(idAvaliacaoAluno)
+
+        if(statusID){
+
+            let resultDadosAvaliacaoAluno = await avaliacaoAlunoDAO.updateAvaliacaoAluno(dadosAvaliacaoAluno)
+
+            if(resultDadosAvaliacaoAluno) {
+
+                let dadosAvaliacaoAlunoJSON = {}
+
+                dadosAvaliacaoAlunoJSON.status = message.SUCESS_UPDATED_ITEM.status
+                dadosAvaliacaoAlunoJSON.message = message.SUCESS_UPDATED_ITEM.message
+                dadosAvaliacaoAlunoJSON.avaliacao_aluno = dadosAvaliacaoAluno
+                
+                return dadosAvaliacaoAlunoJSON
+
+            }
+
+        } else {
+            return message.ERROR_NOT_FOUND
+        }
+    }
+}
+
 const getAvaliacaoAluno = async function () {
     let avaliacaoAlunoJSON = {}
 
@@ -76,7 +117,7 @@ const getAvaliacaoAluno = async function () {
 
         avaliacaoAlunoJSON.status = message.SUCESS_REQUEST.status
         avaliacaoAlunoJSON.message = message.SUCESS_REQUEST.message
-        avaliacaoAlunoJSON.quantidade = materias.length;
+        avaliacaoAlunoJSON.quantidade = avaliacoes.length;
         avaliacaoAlunoJSON.avaliacao = avaliacoes
 
         return avaliacaoAlunoJSON
@@ -104,9 +145,11 @@ const getAvaliacaoAlunoPorId = async function (id) {
         }
     }
 }
+
 module.exports = {
     inserirAvaliacaoAluno,
     deletarAvaliacaoAluno,
     getAvaliacaoAlunoPorId,
-    getAvaliacaoAluno
+    getAvaliacaoAluno,
+    atualizarAvaliacaoAluno
 }

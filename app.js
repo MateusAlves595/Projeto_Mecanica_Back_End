@@ -662,7 +662,7 @@ app.delete('/v1/mecanica/tipo/criterio/:id', cors(), bodyParserJSON, async funct
 });
 
 //EndPoint: Atualiza um tipo de criterio pelo id
-app.put('/v1/mecanica/criterio/:id', cors(), bodyParserJSON, async function (request, response) {
+app.put('/v1/mecanica/tipo/criterio/:id', cors(), bodyParserJSON, async function (request, response) {
     //recebe o content-type da requisicao
     let contentType = request.headers['content-type'];
 
@@ -1009,7 +1009,7 @@ app.put('/v1/mecanica/criterio/:id', cors(), bodyParserJSON, async function (req
 
 });
 
-//EndPoint: Exclui um criterioexistente, filtrando pelo ID
+//EndPoint: Exclui um criterio existente, filtrando pelo ID
 app.delete('/v1/mecanica/criterio/:id', cors(), bodyParserJSON, async function (request, response) {
     
     let idCriterio = request.params.id;
@@ -1024,7 +1024,6 @@ app.delete('/v1/mecanica/criterio/:id', cors(), bodyParserJSON, async function (
        response.status(404);
    }
 });
-
 
 //EndPoint: Retorna todos os criterios
 app.get('/v1/mecanica/criterios', cors(), bodyParserJSON, async function (request, response) {
@@ -1217,6 +1216,30 @@ app.delete('/v1/mecanica/avaliacao/aluno/:id', cors(), bodyParserJSON, async fun
        response.status(404);
    }
 });
+
+app.put('/v1/mecanica/avaliacao/aluno/:id', cors(), bodyParserJSON, async function(request, response) {
+
+    let contentType = request.headers['content-type'];
+
+        //Validacao para receber dados apenas no formato JSON
+        if (String(contentType).toLowerCase() == 'application/json') {
+        //Recebe o id pelo parametro
+        let idAvaliacaoAluno = request.params.id;
+
+        //Recebe os dados encaminhado no corpo da requisição
+        let dadosBody = request.body;
+
+        //Encaminha os dados para a controller
+        let resultDadosAvaliacaoAluno = await controllerAvaliacaoAluno.atualizarAvaliacaoAluno(dadosBody, idAvaliacaoAluno);
+
+        response.status(resultDadosAvaliacaoAluno.status)
+        response.json(resultDadosAvaliacaoAluno)
+
+    } else {
+        response.status(message.ERROR_INVALID_CONTENT_TYPE.status)
+        response.json(message.ERROR_INVALID_CONTENT_TYPE)
+    }
+})
 
 
 //EndPoint: Retorna todas as avaliacoes aluno

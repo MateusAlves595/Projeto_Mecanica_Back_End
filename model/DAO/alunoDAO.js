@@ -55,14 +55,14 @@ const deleteAluno = async function (id) {
 }
 
 ///////////////////////Updates//////////////////////////
-const updateAluno = async function (dadosAluno, idTurma, idUsuario) {
+const updateAluno = async function (dadosAluno) {
     let sql = `update tbl_aluno set
                     nome = '${dadosAluno.nome}',
                     data_nascimento = '${dadosAluno.data_nascimento}',
                     cpf = '${dadosAluno.cpf}',
                     matricula = '${dadosAluno.matricula}',
-                    id_turma = '${idTurma}',
-                    id_usuario = '${idUsuario}'
+                    id_turma = '${dadosAluno.id_turma}',
+                    id_usuario = '${dadosAluno.id_usuario}'
                 where id = ${dadosAluno.id}    
             `
       //Executa o scrip sql no banco de dados        
